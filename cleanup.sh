@@ -1,4 +1,4 @@
-#!/bin/bash
+,#!/bin/bash
 # Cleanup unused files and organize docs
 
 echo "🧹 Cleaning up unused files..."

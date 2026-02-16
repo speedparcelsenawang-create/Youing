@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import {
   Home,
   Settings,
@@ -21,9 +21,8 @@ import {
   Check,
   Calendar,
   Image,
-  X,
 } from "lucide-react"
-import ImageGalleryExample from "@/pages/image-gallery-example"
+import ImageGalleryWithRows from "@/pages/image-gallery-with-rows"
 import {
   Sidebar,
   SidebarContent,
@@ -1328,7 +1327,40 @@ export function App() {
     }
 
     if (activePage === "image-gallery") {
-      return <ImageGalleryExample />
+      // Demo data untuk row-based image gallery
+      const demoPages = [
+        { id: "1", name: "Travel Photos", description: "My travel memories" },
+        { id: "2", name: "Events", description: "Special events and occasions" },
+      ];
+
+      const demoRows = [
+        { id: "r1", pageId: "1", title: "Bali Trip 2024", description: "Amazing beaches and temples", order: 0 },
+        { id: "r2", pageId: "1", title: "Tokyo Adventure", description: "City lights and culture", order: 1 },
+        { id: "r3", pageId: "1", title: "Paris Vacation", order: 2 },
+      ];
+
+      const demoImages = [
+        // Bali Trip
+        { id: "i1", pageId: "1", rowId: "r1", url: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400", title: "Bali Beach", subtitle: "Sunset view", order: 0 },
+        { id: "i2", pageId: "1", rowId: "r1", url: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400", title: "Temple", subtitle: "Ancient architecture", order: 1 },
+        { id: "i3", pageId: "1", rowId: "r1", url: "https://images.unsplash.com/photo-1555400038-63f526b1c6dc?w=400", title: "Rice Terraces", order: 2 },
+        // Tokyo
+        { id: "i4", pageId: "1", rowId: "r2", url: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400", title: "Tokyo Tower", order: 0 },
+        { id: "i5", pageId: "1", rowId: "r2", url: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=400", title: "Shibuya Crossing", order: 1 },
+        // Paris
+        { id: "i6", pageId: "1", rowId: "r3", url: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=400", title: "Eiffel Tower", order: 0 },
+      ];
+
+      return (
+        <ImageGalleryWithRows
+          initialPages={demoPages}
+          initialRows={demoRows}
+          initialImages={demoImages}
+          onImageClick={(rowId, index) => {
+            console.log("Image clicked:", rowId, index);
+          }}
+        />
+      );
     }
 
     // Default home page
@@ -1581,7 +1613,7 @@ export function App() {
 
   return (
     <SidebarProvider>
-      <Sidebar>
+      <Sidebar className="z-[60]">
         <SidebarHeader>
           <div className="flex items-center justify-center py-4 px-4">
             <img 
@@ -1751,7 +1783,7 @@ export function App() {
       </Sidebar>
 
       <SidebarInset>
-        <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b px-6 bg-background shadow-sm">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b px-6 bg-background shadow-sm">
           <SidebarTrigger />
           <nav 
             key={`breadcrumb-nav-${activePage}`}

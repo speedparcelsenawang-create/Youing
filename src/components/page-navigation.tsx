@@ -7,10 +7,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { Page } from "@/types/page-content";
+import type { GalleryPage } from "@/types/image-gallery";
 
 interface PageNavigationProps {
-  pages: Page[];
+  pages: GalleryPage[];
   activePage: string;
   onPageChange: (pageId: string) => void;
   onAddPage: () => void;
@@ -29,7 +29,7 @@ export function PageNavigation({
   onDetailsPage,
 }: PageNavigationProps) {
   return (
-    <div className="border-b border-border bg-card">
+    <div className="border-b border-border bg-card sticky top-16 z-20">
       <div className="max-w-7xl mx-auto px-8 flex items-center gap-4">
         <div className="flex-1 overflow-x-auto">
           <div className="flex items-center gap-2 py-3">
@@ -55,7 +55,7 @@ export function PageNavigation({
                       <MoreVertical className="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" data-testid={`menu-page-actions-${page.id}`}>
+                  <DropdownMenuContent align="start" className="z-[100]" data-testid={`menu-page-actions-${page.id}`}>
                     {onDetailsPage && (
                       <>
                         <DropdownMenuItem onClick={() => onDetailsPage(page.id)} data-testid={`menu-item-details-${page.id}`}>
